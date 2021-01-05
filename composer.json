@@ -17,5 +17,12 @@
             "DragonSoftware\\Modalizable\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DragonSoftware\\Modalizable\\"
+            ]
+        }
+    },
     "minimum-stability": "dev"
 }
