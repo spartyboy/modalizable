@@ -9,7 +9,7 @@ Modalizable is a bootstrap 4 styled popup modal edit plugin that enables you cre
 
 require via composer
 ```sh
-composer require spartyboy/modalizable
+composer require dragonsofware/modalizable
 ```
 
 publish assets
