@@ -1,8 +1,11 @@
-# Dillinger
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
+[![Issues](https://img.shields.io/github/issues/spartyboy/modalizable?style=for-the-badge)](https://github.com/spartyboy/modalizable/issues)
+[![Forks](https://img.shields.io/github/forks/spartyboy/modalizable?style=for-the-badge)](https://github.com/spartyboy/modalizable/network/members)
+[![Stars](https://img.shields.io/github/stars/spartyboy/modalizable?style=for-the-badge)](https://github.com/spartyboy/modalizable/stargazers)
+[![Total Downloads](https://poser.pugx.org/dragonsoftware/modalizable/downloads)](//packagist.org/packages/dragonsoftware/modalizable)
+[![License](https://poser.pugx.org/dragonsoftware/modalizable/license)](//packagist.org/packages/dragonsoftware/modalizable)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
 
 Modalizable is a bootstrap 4 styled popup modal edit plugin that enables you create edit modal popup with ease and could be customized to fit your needs. it currently supports all input types
 # Usage
