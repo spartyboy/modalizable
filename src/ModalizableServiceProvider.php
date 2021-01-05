@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 class ModalizableServiceProvider extends ServiceProvider
 {
     public function boot(){
-        $this->loadViewsFrom(__DIR__.'/views');
+        $this->loadViewsFrom(__DIR__.'/views','modalizable');
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/modalizable'),
         ], 'dragon_modal');
