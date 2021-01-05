@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DragonSoftware\\Modalizable\\"
+                "DragonSoftware\\Modalizable\\ModalizableServiceProvider"
             ]
         }
     },
