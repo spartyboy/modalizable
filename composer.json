@@ -3,7 +3,7 @@
     "description": "This package would help create modal edit form for both normal tables and datatable with ease using bootstrap 4 styling",
     "type": "library",
     "require": {
-        "illuminate/collections": "9.x-dev"
+
     },
     "license": "MIT",
     "authors": [
