@@ -22,17 +22,17 @@ php artisan vendor:publish --tag="dragon_modal"
 include scripts
 ```sh
 @include("modalizable::modalscript",["click"=>"","modal"=>""])
-the click and modal array is optional but pass if you want to give the modal a different id, by default this is called modalizableModal for modal name and the click is the class name that triggers the event.
+The click and modal key in the array is optional. but provide them if you want to give the modal a different id, by default this is set to modalizableModal for modal name and the click is the class name that triggers the event.
 ```
 # Features!
 
-  - create a json array containing the following the for input type text, number, tel, file,range, datetime, date, email, search, color, textarea on the
+  - create a json array containing the following, for input type text, number, tel, file,range, datetime, date, email, search, color, textarea,checkbox,radio,customSwitch,select on the
   ```sh
-   ModalizableController::modalizableGenerator()
+   Modalizable::modalizableGenerator()
    ```
  # Example: 
    ```sh
-   ModalizableController::modalizableGenerator('text',['Salam Justice',false, 'Full Name'],'user',['name'=>'full_name','data-menu'=>'main'],'form-control clearError','edit-name');
+   Modalizable::modalizableGenerator('text',['Salam Justice',false, 'Full Name'],'user',['name'=>'full_name','data-menu'=>'main'],'form-control clearError','edit-name');
    ``` 
    
    
@@ -49,7 +49,7 @@ the click and modal array is optional but pass if you want to give the modal a d
     </div>        
             
    ```
-  Meanwhile, for select, checkbox,radio, switch follows same pattern for the second parameter passed to the modalizable generator method you just have to pass an array of values that should be used as value,label for each element. e.g assuming the id of each state is to be used as the value for each element then you pass
+  Meanwhile, for select, checkbox,radio, switch follows same pattern. For the second parameter passed to the modalizable generator method you just have to pass an array of values that should be used as value, label for each element. e.g
   
   ```sh
   [
@@ -57,7 +57,7 @@ the click and modal array is optional but pass if you want to give the modal a d
   ["id"=>2,"name"=>"Newyork"]
   ] as second argument to the method of the modalizableGenerator.
   ```
-Then you also pass a label to be used for selectLabel argument of the modalizableGenerator method. for select option this label is used as the optgroup, for radios, checkboxes and swith it is used as a caption for what the entire radio or checkbox is meant for.
+Then you also pass a label to be used for selectLabel argument of the modalizableGenerator method. for select option this label is used as the optgroup, for radios, checkboxes and switch it is used as a caption for what the entire radio or checkbox is meant for.
 
 The next argument are the selected values that shows the item to be selected or checked this should be passed as an array. for select a single value is  needed for checkboxes multiple or single are required e.g. for the above values array previously defined
 ```sh
@@ -89,13 +89,13 @@ To initialize this do make sure your button to be clicked for edit has the follo
 checkbox usage
 
 ```shell script
-$nestedArray['attributes'] = "<div data-edit='".ModalizableController::modalizableGenerator('checkbox',Attribute::all()->sortBy('name')->toArray(),'',['name'=>'attribute_id[]'],'clearEditInvalidity custom-select form-control my-2','edit-attribute_id','Attribute',collect($collection->get('attributes_model'))->pluck('id')->all(),['selected'=>'id','label'=>'name','value'=>'id'])."'>" . $name . "</div>";
+$nestedArray['attributes'] = "<div data-edit='".Modalizable::modalizableGenerator('checkbox',Attribute::all()->sortBy('name')->toArray(),'',['name'=>'attribute_id[]'],'clearEditInvalidity custom-select form-control my-2','edit-attribute_id','Attribute',collect($collection->get('attributes_model'))->pluck('id')->all(),['selected'=>'id','label'=>'name','value'=>'id'])."'>" . $name . "</div>";
 ```
 
 select Option Usage
 
 ```shell script
-$nestedArray['admin_category_id']= "<div data-edit='".ModalizableController::modalizableGenerator('select',AdminCategory::all()->toArray(),'',['name'=>'admin_category_id'],'clearEditInvalidity searchableSelect form-control','edit-admin_category_id','Admin Category',[$collection->get('admin_category_id')],['selected'=>'id','label'=>'name','value'=>'id'])."'>".optional($collection->get('admin_category'))['name']."</div>";
+$nestedArray['admin_category_id']= "<div data-edit='".Modalizable::modalizableGenerator('select',AdminCategory::all()->toArray(),'',['name'=>'admin_category_id'],'clearEditInvalidity searchableSelect form-control','edit-admin_category_id','Admin Category',[$collection->get('admin_category_id')],['selected'=>'id','label'=>'name','value'=>'id'])."'>".optional($collection->get('admin_category'))['name']."</div>";
 ```
 
 # Upcoming features
