@@ -8,6 +8,9 @@
 
 
 Modalizable is a bootstrap 4 styled popup modal edit plugin that enables you create edit modal popup with ease and could be customized to fit your needs. it currently supports all input types
+# Requirement
+* Bootstrap 4
+* Jquery
 # Usage
 
 require via composer
