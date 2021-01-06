@@ -89,13 +89,13 @@ To initialize this do make sure your button to be clicked for edit has the follo
 checkbox usage
 
 ```shell script
-$nestedArray['attributes'] = "<div data-edit='".GeneralController::modalizableGenerator('checkbox',Attribute::all()->sortBy('name')->toArray(),'',['name'=>'attribute_id[]'],'clearEditInvalidity custom-select form-control my-2','edit-attribute_id','Attribute',collect($collection->get('attributes_model'))->pluck('id')->all(),['selected'=>'id','label'=>'name','value'=>'id'])."'>" . $name . "</div>";
+$nestedArray['attributes'] = "<div data-edit='".ModalizableController::modalizableGenerator('checkbox',Attribute::all()->sortBy('name')->toArray(),'',['name'=>'attribute_id[]'],'clearEditInvalidity custom-select form-control my-2','edit-attribute_id','Attribute',collect($collection->get('attributes_model'))->pluck('id')->all(),['selected'=>'id','label'=>'name','value'=>'id'])."'>" . $name . "</div>";
 ```
 
 select Option Usage
 
 ```shell script
-$nestedArray['admin_category_id']= "<div data-edit='".GeneralController::modalizableGenerator('select',AdminCategory::all()->toArray(),'',['name'=>'admin_category_id'],'clearEditInvalidity searchableSelect form-control','edit-admin_category_id','Admin Category',[$collection->get('admin_category_id')],['selected'=>'id','label'=>'name','value'=>'id'])."'>".optional($collection->get('admin_category'))['name']."</div>";
+$nestedArray['admin_category_id']= "<div data-edit='".ModalizableController::modalizableGenerator('select',AdminCategory::all()->toArray(),'',['name'=>'admin_category_id'],'clearEditInvalidity searchableSelect form-control','edit-admin_category_id','Admin Category',[$collection->get('admin_category_id')],['selected'=>'id','label'=>'name','value'=>'id'])."'>".optional($collection->get('admin_category'))['name']."</div>";
 ```
 
 # Upcoming features
