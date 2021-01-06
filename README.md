@@ -28,9 +28,9 @@ the click and modal array is optional but pass if you want to give the modal a d
 
   - create a json array containing the following the for input type text, number, tel, file,range, datetime, date, email, search, color, textarea on the
   ```sh
-   modalizableController::modalizableGenerator()
+   ModalizableController::modalizableGenerator()
    ```
- #Example: 
+ # Example: 
    ```sh
    ModalizableController::modalizableGenerator('text',['Salam Justice',false, 'Full Name'],'user',['name'=>'full_name','data-menu'=>'main'],'form-control clearError','edit-name');
    ``` 
@@ -85,6 +85,19 @@ To initialize this do make sure your button to be clicked for edit has the follo
                 $option= json_encode(["id"=>$collection->get('id'),"caption"=>"Edit Programme For $text","url"=>route('crudprogramme.update',['crudprogramme'=>$collection->get('id')]),"csrf"=>csrf_token(),"class"=>"silentSubmit","placeholder"=>"editErrorMessages","errors"=>"clearEditInvalidity","type"=>"edit"]);
 <button type='button' data-option='".$option."' class='mx-1 modalizable my-1 btn btn-sm btn-primary'><i class='fa fa-edit'></i>
 ```
+
+checkbox usage
+
+```shell script
+$nestedArray['attributes'] = "<div data-edit='".GeneralController::modalizableGenerator('checkbox',Attribute::all()->sortBy('name')->toArray(),'',['name'=>'attribute_id[]'],'clearEditInvalidity custom-select form-control my-2','edit-attribute_id','Attribute',collect($collection->get('attributes_model'))->pluck('id')->all(),['selected'=>'id','label'=>'name','value'=>'id'])."'>" . $name . "</div>";
+```
+
+select Option Usage
+
+```shell script
+$nestedArray['admin_category_id']= "<div data-edit='".GeneralController::modalizableGenerator('select',AdminCategory::all()->toArray(),'',['name'=>'admin_category_id'],'clearEditInvalidity searchableSelect form-control','edit-admin_category_id','Admin Category',[$collection->get('admin_category_id')],['selected'=>'id','label'=>'name','value'=>'id'])."'>".optional($collection->get('admin_category'))['name']."</div>";
+```
+
 # Upcoming features
 
 * File Preview
