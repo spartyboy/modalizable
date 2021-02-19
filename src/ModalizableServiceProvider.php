@@ -5,7 +5,6 @@ namespace DragonSoftware\Modalizable;
 
 
 use Illuminate\Support\ServiceProvider;
-
 class ModalizableServiceProvider extends ServiceProvider
 {
     public function boot(){

@@ -1,8 +1,9 @@
 class Modal {
     objectParent; data; objectParentSiblings; uniqueIdentifier; caption; url; token; btnClass; placeholder; clearErrors; outputString; optType; found;
+    Toast;
     constructor(this_obj,modal) {
         this.acceptableTypesInput=['password','text','datetime','datetime-local','file','date','number','email','hidden','color','range','search','tel'];
-        this.acceptableTypesDifferent=['select','radio','checkbox','textarea','switch'];
+        this.acceptableTypesDifferent=['select','radio','checkbox','textarea','switch','multiselect'];
         this.this_obj=this_obj;
         this.objectParent=this.this_obj.parent().parent();
         this.data = this.this_obj.data('option');
@@ -99,6 +100,14 @@ class Modal {
                         let selectOptions = this.selectOption(editOptions);
                         returnValue = '<div class="form-group">' +
                             '               <select id="'+editOptions.id+'" '+options+' class="custom-select '+editOptions.classes+'">' +
+                            '                   <optgroup label="'+editOptions.selectLabel+'">' +
+                            '     '+selectOptions+'              </optgroup> ' +
+                            '               </select>' +
+                            '          </div>';
+                    }else if(type==='multiselect'){
+                        let selectOptions = this.multiSelect(editOptions);
+                        returnValue = '<div class="form-group">' +
+                            '               <select multiple id="'+editOptions.id+'" '+options+' class="custom-select '+editOptions.classes+'">' +
                             '                   <optgroup label="'+editOptions.selectLabel+'">' +
                             '     '+selectOptions+'              </optgroup> ' +
                             '               </select>' +
@@ -242,5 +251,146 @@ class Modal {
             options+='<option value="">No Options</option>'
         }
         return options
+    }
+    multiSelect(editOption){
+        let options = '';
+        if(editOption.values.length >= 1){
+            let selected = '';
+
+            for(let i=0;i<=editOption.values.length-1;i++){
+                let value = editOption.values[i];
+                if(value.selected){
+                    selected = 'selected';
+                }else{
+                    selected ='';
+                }
+                if(Object.keys(editOption.custom_attribute).length>0) {
+                    let obj = JSON.stringify(editOption.custom_attribute.value[i]);
+                    //console.log(editOption.custom_attribute.value[i]);
+                    options+=`<option data-${editOption.custom_attribute.name}="${obj}" ${selected} value="${value.value}">${value.label}</option>`
+                }else {
+                    options += `<option  ${selected} value="${value.value}">${value.label}</option>`;
+                }
+            }
+        }else{
+            options+='<option value="">No Options</option>'
+        }
+        return options
+    }
+    timer(str) {
+        var secPer10len = 2000;
+        var strlen =str.length;
+        var parseIntDiv10 = parseInt(strlen/10);
+        return parseIntDiv10*secPer10len;
+    }
+    clearAllErrors(className) {
+        $("."+className).removeClass('is-invalid');
+    }
+    errorConstructor(errorArray,type,clearAllErrorsClassName,placeHolder) {
+        // clear all previous errors
+        this.clearAllErrors(clearAllErrorsClassName);
+        //get the errors returned from server as a JSON array
+        //make an  alert box for displaying validation errors
+        var errors = '<div class="row"> <div class="col-12 col-md-8 offset-md-2">' +
+            '<div role="alert" class="alert alert-danger">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">×</span>' +
+            '</button> <ul class="text-dark">';
+        //for each of the error show their messages
+        $.each(errorArray,function (index,value) {
+            index = index.replace('.','');
+            $('#'+type+'-'+index).addClass('is-invalid');
+            errors+='<li class="text-wrap">'+value[0]+'</li>';
+        });
+        //place the error in the view
+        errors +='</ul></div></div></div>';
+        $('#'+placeHolder).html(errors);
+    }
+    swalMultipartSubmit(url,arrayOfDataToSend,type,clearAllErrorsClassName,placeHolder,form,btn) {
+        var originalText = btn.html();
+        btn.prop('disabled',true);
+        btn.text('Processing...').button('refresh');
+        $.ajax({
+            url:url,
+            type:"POST",
+            data:arrayOfDataToSend,
+            cache:false,
+            contentType:false,
+            processData:false,
+            async:false,
+            enctype:'multipart/form-data',
+            success: (data, status, xhr)=> {
+                if (parseInt(xhr.status) === 200) {
+                    btn.prop('disabled',false);
+                    btn.html(originalText).button('refresh');
+                    Swal.fire({
+                        text: data.status,
+                        icon:data.icon,
+                        closeModal: true,
+                        button:true,
+                        timer:timer(data.status),
+                    });
+                    form[0].reset();
+                    if(functions instanceof Array) {
+                        if (functions.length > 0) {
+                            for (var i = 0; i < functions.length; i++) {
+                                var funcObj = functions[i];
+                                var funct = window[funcObj.name];
+                                if(funcObj.params==='paramPass'){
+                                    var params = data;
+                                }else{
+                                    var params = funcObj.params;
+                                }
+                                funct(params);
+                            }
+                        }
+                    }else{
+                        var funct = window[functions];
+                        funct(tabledata);
+                    }
+
+                    clearAllErrors(clearAllErrorsClassName);
+                    $("#" + placeHolder).children().remove();
+                }
+            },
+            error: (data,status,xhr)=> {
+                btn.prop('disabled',false);
+                btn.html(originalText).button('refresh');
+                this.Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                if(data.status===422){
+                    this.errorConstructor(data.responseJSON.errors,type,clearAllErrorsClassName,placeHolder);
+                }else if(data.status === 403){
+                    Toast.fire({
+                        title:'Sorry You Are Unauthorized To Do This',
+                        icon:'error'
+                    });
+                }else if(data.status===500){
+                    Toast.fire({
+                        title:'Whoops! Something Went Wrong',
+                        icon:'error'
+                    });
+                }else if (data.status===404){
+                    Toast.fire({
+                        title:'Document Not Found',
+                        icon:'error'
+                    });
+                }else if (data.status===419){
+                    Toast.fire({
+                        title:'CSRF Token Mismatch',
+                        icon:'error'
+                    });
+                }else{
+                    Toast.fire({
+                        title:'Something Went Wrong',
+                        icon:'error'
+                    });
+                }
+            }
+        });
     }
 }
