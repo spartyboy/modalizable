@@ -31,7 +31,11 @@ The click, modal and autoSubmit key in the array of the @include above are optio
 But do provide them if you want to give the bootstrap modal a different id,
 by default, the click is a html 5 class attribute that triggers the modal
 when the edit button on your front end is clicked. This is set to modalizable by default,
-this implies that if you have a mark up code for your edit you should have the following class attached to it
+this implies that if you have a mark up code for your edit you should have the following class attached to it.
+
+The modal denotes the id to be given to the modal by default this is modalizableModal
+
+The autoSubmit denotes if when you click on the save button should this library automatically use ajax and also process error handling for you
 
 ```sh
 <button class="modalizable">Edit</button>
@@ -151,6 +155,17 @@ select Option Usage
 ```shell script
 $nestedArray['admin_category_id']= "<div data-edit='".Modalizable::modalizableGenerator('select',AdminCategory::all()->toArray(),'',['name'=>'admin_category_id'],'clearEditInvalidity searchableSelect form-control','edit-admin_category_id','Admin Category',[$collection->get('admin_category_id')],['selected'=>'id','label'=>'name','value'=>'id'])."'>".optional($collection->get('admin_category'))['name']."</div>";
 ```
+#Performing Complex formating
+to perform complex task do listen for bootstrap modal open event
+
+```shell
+
+jQuery('#modalizableModal').on('shown.bs.modal', function () {
+  jQuery('#edit-name').trigger('focus')
+})
+if the id was changed do put the respective name of the modal passed to the modal key at the @include 
+```
+
 
 # Upcoming features
 
