@@ -22,6 +22,7 @@ class Modalizable extends Controller
                     'options'=>$options,
                     'classes' =>$classes,
                     'id'=>$id,
+                    'parentClass'=>$parentClass,
                 ];
             }elseif(self::$acceptableTypesDifferent->contains($type)) {
                 if ($type !== 'textarea') {
@@ -66,6 +67,7 @@ class Modalizable extends Controller
                         'classes' =>$classes,
                         'id'=>$id,
                         'custom_attribute'=>$customAttribute,
+                        'parentClass'=>$parentClass,
                     ];
                 }
             }
