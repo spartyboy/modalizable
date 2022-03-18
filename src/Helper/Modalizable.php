@@ -67,7 +67,6 @@ class Modalizable extends Controller
                         'classes' =>$classes,
                         'id'=>$id,
                         'custom_attribute'=>$customAttribute,
-                        'parentClass'=>$parentClass,
                     ];
                 }
             }
