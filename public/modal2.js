@@ -3,7 +3,7 @@ class Modal {
     Toast;
     constructor(this_obj,modal) {
         this.acceptableTypesInput=['password','text','datetime','datetime-local','file','date','number','email','hidden','color','range','search','tel'];
-        this.acceptableTypesDifferent=['select','radio','checkbox','textarea','switch','multiselect'];
+        this.acceptableTypesDifferent=['select','radio','checkbox','textarea','switch','multi-select'];
         this.this_obj=this_obj;
         this.objectParent=this.this_obj.parent().parent();
         this.data = this.this_obj.data('option');
@@ -98,13 +98,13 @@ class Modal {
                 }else{
                     if(type==='select'){
                         let selectOptions = this.selectOption(editOptions);
-                        returnValue = '<div class="form-group">' +
+                        returnValue = '<div class="form-group '+editOptions.parentClass+' ">' +
                             '               <select id="'+editOptions.id+'" '+options+' class="custom-select '+editOptions.classes+'">' +
                             '                   <optgroup label="'+editOptions.selectLabel+'">' +
                             '     '+selectOptions+'              </optgroup> ' +
                             '               </select>' +
                             '          </div>';
-                    }else if(type==='multiselect'){
+                    }else if(type==='multi-select'){
                         let selectOptions = this.multiSelect(editOptions);
                         returnValue = '<div class="form-group">' +
                             '               <select multiple id="'+editOptions.id+'" '+options+' class="custom-select '+editOptions.classes+'">' +
@@ -130,7 +130,7 @@ class Modal {
         }
     }
     exist(hayStack,needle) {
-        for (let i = 0; i <hayStack.length-1 ; i++) {
+        for (let i = 0; i <=hayStack.length-1 ; i++) {
             let text = hayStack[i];
             if(text===needle){
                 this.found=true;
@@ -155,7 +155,7 @@ class Modal {
         if(editOption.values.length >= 1) {
             let id= editOption.id;
             //let split=id.split('-')[1];
-            let radios = "<div class='row' id='"+id+"'><div class='col-12'><h3 class='text-capitalize text-wrap text-center'>"+editOption.selectLabel+"</h3></div>";
+            let radios = "<div class='row "+editOption.parentClass+"' id='"+id+"'><div class='col-12'><h3 class='text-capitalize text-wrap text-center'>"+editOption.selectLabel+"</h3></div>";
             let counter = 0;
             $.each(editOption.values,function (key, value) {
                 let checked = null;
