@@ -8,7 +8,7 @@ class Modalizable extends Controller
 {
     private static $acceptableTypesInput;
     private static $acceptableTypesDifferent;
-    public static function modalizableGenerator($type='',$values=[],$icon='',$options=[],$classes='',$id='',$selectLabel='',$selectedValues=[],$keys=[],$customAttribute=[],$parentClass=''){
+    public static function modalizableGenerator($type='',$values=[],$icon='',$options=[],$classes='',$id='',$selectLabel='',$selectedValues=[],$keys=[],$customAttribute=[],$parentClass='',$parentId=''){
         $returnArray = null;
         $type= strtolower($type);
         self::$acceptableTypesInput = collect(['password','text','datetime','datetime-local','file','date','number','email','hidden','color','range','search','tel']);
@@ -23,6 +23,7 @@ class Modalizable extends Controller
                     'classes' =>$classes,
                     'id'=>$id,
                     'parentClass'=>$parentClass,
+                    'parentId'=>$parentId,
                 ];
             }elseif(self::$acceptableTypesDifferent->contains($type)) {
                 if ($type !== 'textarea') {
@@ -57,6 +58,7 @@ class Modalizable extends Controller
                         'id'=>$id,
                         'custom_attribute'=>$customAttribute,
                         'parentClass'=>$parentClass,
+                        'parentId'=>$parentId,
                     ];
                 }else{
                     $returnArray =  [
@@ -67,6 +69,8 @@ class Modalizable extends Controller
                         'classes' =>$classes,
                         'id'=>$id,
                         'custom_attribute'=>$customAttribute,
+                        'parentClass'=>$parentClass,
+                        'parentId'=>$parentId,
                     ];
                 }
             }
