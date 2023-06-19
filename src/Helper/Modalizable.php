@@ -11,7 +11,7 @@ class Modalizable extends Controller
     public static function modalizableGenerator($type='',$values=[],$icon='',$options=[],$classes='',$id='',$selectLabel='',$selectedValues=[],$keys=[],$customAttribute=[],$parentClass='',$parentId=''){
         $returnArray = null;
         $type= strtolower($type);
-        self::$acceptableTypesInput = collect(['password','text','datetime','datetime-local','file','date','number','email','hidden','color','range','search','tel']);
+        self::$acceptableTypesInput = collect(['password','text','datetime','datetime-local','file','date','number','email','hidden','color','range','search','tel','url']);
         self::$acceptableTypesDifferent =collect(['select','radio','checkbox','textarea','switch','multi-select']);
         if(!empty($type) && count($values)>0 && count($options)>0 && is_array($selectedValues) && !empty($id) && is_string($type) &&is_string($selectLabel) && is_string($classes) && is_string($icon) && is_array($values) && is_array($options)){
             if(self::$acceptableTypesInput->contains($type) && count($values)===3){
