@@ -2,7 +2,7 @@ class Modal {
     objectParent; data; objectParentSiblings; uniqueIdentifier; caption; url; token; btnClass; placeholder; clearErrors; outputString; optType; found;
     Toast;
     constructor(this_obj,modal) {
-        this.acceptableTypesInput=['password','text','datetime','datetime-local','file','date','number','email','hidden','color','range','search','tel'];
+        this.acceptableTypesInput=['password','text','month','year','datetime','datetime-local','file','date','number','email','hidden','color','range','search','tel'];
         this.acceptableTypesDifferent=['select','radio','checkbox','textarea','switch','multi-select'];
         this.this_obj=this_obj;
         this.objectParent=this.this_obj.parent().parent();
